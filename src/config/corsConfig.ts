@@ -1,25 +1,22 @@
 import cors, { CorsOptions } from "cors";
 
 
-export function getCorsOptions(): CorsOptions {
-    const raw = process.env.CORS_ORIGIN?.trim();
-    if (!raw) {
-        return { origin: true };
+export const getCorsOptions = () => {
+    const isDevelopment = process.env.NODE_ENV === "development";
+
+    if (isDevelopment) {
+        // Allow all origins in development for easy testing
+        return {
+            origin: true,
+            credentials: true,
+        };
     }
 
-    const origins = raw
-        .split(",")
-        .map((o) => o.trim())
-        .filter(Boolean);
-
-    if (origins.length === 0) {
-        return { origin: true };
-    }
-
+    // Strict origins in production
     return {
-        origin: origins.length === 1 ? origins[0] : origins,
+        origin: process.env.ALLOWED_ORIGINS?.split(",") || [],
         credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
     };
-}
-
-export const corsMiddleware = cors(getCorsOptions());
+};

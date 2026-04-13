@@ -1,6 +1,8 @@
 import express, { Express } from "express";
+import v1Routes from "./api/v1/routes";
 import { corsMiddleware } from "./config/corsConfig";
 import setupSwagger from "./docs/swagger";
+import { errorHandler } from "./api/v1/middleware/errorHandler";
 
 // Initialize Express application
 const app: Express = express();
@@ -43,6 +45,10 @@ app.get("/api/v1/health", (req, res) => {
     });
 });
 
+app.use("/api/v1", v1Routes);
+
 setupSwagger(app);
+
+app.use(errorHandler);
 
 export default app;
