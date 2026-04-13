@@ -32,8 +32,10 @@ export const createProduct = async (productData: {
             updatedAt: new Date(),
         };
 
-        const id = await firestoreRepository.createDocument(
+        const id = await firestoreRepository.allocateSequentialId(COLLECTION);
+        await firestoreRepository.createDocumentWithId(
             COLLECTION,
+            id,
             newProductData,
         );
 

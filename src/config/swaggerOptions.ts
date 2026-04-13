@@ -5,7 +5,7 @@ const port = process.env.PORT || "4000";
 const serverBaseUrl =
     process.env.SWAGGER_SERVER_URL?.trim() || `http://localhost:${port}`;
 
-const swaggerOptions: swaggerJsdoc.Options = {
+const swaggerOptions = {
     definition: {
         openapi: "3.0.0",
         info: {

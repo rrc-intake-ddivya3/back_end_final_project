@@ -42,14 +42,22 @@ const errorHandler = (
     }
 
     if (err instanceof AppError) {
-        // Handle our custom application errors with their specific status codes
         res.status(err.statusCode).json(errorResponse(err.message, err.code));
-    } else {
-        // Handle unexpected errors (programming errors, third-party library errors, etc.)
-        res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json(
-            errorResponse("An unexpected error occurred", "UNKNOWN_ERROR")
-        );
+        return;
     }
+
+    // Plain Error (e.g. Firebase not configured): show message in dev so Postman is useful
+    const isProduction = process.env.NODE_ENV === "production";
+    const message =
+        !isProduction && err instanceof Error
+            ? err.message
+            : "An unexpected error occurred";
+    const code =
+        !isProduction && err instanceof Error ? "SERVER_ERROR" : "UNKNOWN_ERROR";
+
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json(
+        errorResponse(message, code),
+    );
 };
 
 export default errorHandler;

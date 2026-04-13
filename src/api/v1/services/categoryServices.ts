@@ -14,8 +14,10 @@ export const createCategory = async (categoryData: {
             updatedAt: new Date(),
         };
 
-        const id = await firestoreRepository.createDocument(
+        const id = await firestoreRepository.allocateSequentialId(COLLECTION);
+        await firestoreRepository.createDocumentWithId(
             COLLECTION,
+            id,
             newCategoryData,
         );
 
