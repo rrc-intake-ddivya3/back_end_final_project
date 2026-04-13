@@ -57,3 +57,12 @@ export function getFirestore(): admin.firestore.Firestore {
     }
     return admin.firestore();
 }
+
+export function getAuth(): admin.auth.Auth {
+    if (!admin.apps.length) {
+        throw new Error(
+            "Firebase Admin is not initialized. Cannot access Auth without credentials.",
+        );
+    }
+    return admin.auth();
+}
