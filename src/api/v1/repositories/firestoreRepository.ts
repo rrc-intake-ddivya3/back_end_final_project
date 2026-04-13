@@ -45,6 +45,19 @@ export const createDocumentWithId = async (
     return ref.id;
 };
 
+/**
+ * Same id rules for every collection: `_counters/{collection}` gives "1", "2", …
+ * within that collection only (categories, products, and orders each start at "1").
+ */
+export const createWithSequentialId = async (
+    collection: string,
+    data: FirestoreFields,
+): Promise<string> => {
+    const id = await allocateSequentialId(collection);
+    await createDocumentWithId(collection, id, data);
+    return id;
+};
+
 export const getAllDocuments = async <T extends { id: string }>(
     collection: string,
 ): Promise<T[]> => {

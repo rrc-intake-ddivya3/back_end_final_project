@@ -1,14 +1,5 @@
-export interface OrderLineItem {
+export interface Order {
+    id: string;
     productId: string;
     quantity: number;
 }
-
-export interface Order {
-    id: string;
-    items: OrderLineItem[];
-    total: number;
-}
-
-export type OrderCreateInput = {
-    items: OrderLineItem[];
-};
