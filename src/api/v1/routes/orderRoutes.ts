@@ -25,14 +25,14 @@ router.get(
 router.put(
     "/:id",
     authenticate,
-    isAuthorized({ hasRole: ["admin"] }),
+    isAuthorized({ hasRole: ["admin", "staff"] }),
     validateRequest(orderSchemas.update),
     orderController.updateOrderHandler,
 );
 router.delete(
     "/:id",
     authenticate,
-    isAuthorized({ hasRole: ["admin"] }),
+    isAuthorized({ hasRole: ["admin", "staff"] }),
     validateRequest(orderSchemas.delete),
     orderController.deleteOrderHandler,
 );
