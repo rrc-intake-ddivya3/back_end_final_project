@@ -1,7 +1,6 @@
 import cors, { CorsOptions } from "cors";
 
-
-export const getCorsOptions = () => {
+export const getCorsOptions = (): CorsOptions => {
     const isDevelopment = process.env.NODE_ENV === "development";
 
     if (isDevelopment) {
@@ -20,3 +19,6 @@ export const getCorsOptions = () => {
         allowedHeaders: ["Content-Type", "Authorization"],
     };
 };
+
+export const corsMiddleware = cors(getCorsOptions());
+
