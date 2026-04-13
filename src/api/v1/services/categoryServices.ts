@@ -60,7 +60,7 @@ export const getCategoryById = async (id: string): Promise<Category> => {
     }
 };
 
-// update name (send only the fields you want to change)
+// update category PUT
 export const updateCategory = async (
     id: string,
     categoryData: { name?: string },

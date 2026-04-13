@@ -59,7 +59,7 @@ export const getCategoryByIdHandler = async (
     }
 };
 
-// PATCH /categories/:id
+// PUT /categories/:id
 export const updateCategoryHandler = async (
     req: Request,
     res: Response,
