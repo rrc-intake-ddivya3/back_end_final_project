@@ -6,5 +6,3 @@ export interface Product {
     categoryId: string;
 }
 
-export type ProductCreateInput = Omit<Product, "id">;
-export type ProductUpdateInput = Partial<Omit<Product, "id">>;
