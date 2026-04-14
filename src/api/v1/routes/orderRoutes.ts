@@ -52,10 +52,19 @@ router.post(
  *     responses:
  *       '200':
  *         description: Orders retrieved successfully
+ *       '401':
+ *         description: Unauthorized
+ *       '403':
+ *         description: Forbidden
  *       '500':
  *         description: Server error
  */
-router.get("/", orderController.getAllOrdersHandler);
+router.get(
+    "/",
+    authenticate,
+    isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
+    orderController.getAllOrdersHandler,
+);
 /**
  * @openapi
  * /api/v1/orders/{id}:
@@ -87,7 +96,7 @@ router.get("/", orderController.getAllOrdersHandler);
 router.get(
     "/:id",
     authenticate,
-    isAuthorized({ hasRole: ["admin", "staff"] }),
+    isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
     validateRequest(orderSchemas.getById),
     orderController.getOrderByIdHandler,
 );
@@ -138,7 +147,7 @@ router.put(
  * /api/v1/orders/{id}:
  *   delete:
  *     summary: Delete an order
- *     description: Deletes an order by ID. Admin and staff are allowed.
+ *     description: Deletes an order by ID. Admin, staff, and customers are allowed.
  *     tags:
  *       - Orders
  *     security:
@@ -164,7 +173,7 @@ router.put(
 router.delete(
     "/:id",
     authenticate,
-    isAuthorized({ hasRole: ["admin", "staff"] }),
+    isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
     validateRequest(orderSchemas.delete),
     orderController.deleteOrderHandler,
 );

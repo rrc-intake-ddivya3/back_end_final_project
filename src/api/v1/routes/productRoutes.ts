@@ -52,10 +52,19 @@ router.post(
  *     responses:
  *       '200':
  *         description: Products retrieved successfully
+ *       '401':
+ *         description: Unauthorized
+ *       '403':
+ *         description: Forbidden
  *       '500':
  *         description: Server error
  */
-router.get("/", productController.getAllProductsHandler);
+router.get(
+    "/",
+    authenticate,
+    isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
+    productController.getAllProductsHandler,
+);
 /**
  * @openapi
  * /api/v1/products/{id}:
@@ -87,7 +96,7 @@ router.get("/", productController.getAllProductsHandler);
 router.get(
     "/:id",
     authenticate,
-    isAuthorized({ hasRole: ["admin", "staff"] }),
+    isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
     validateRequest(productSchemas.getById),
     productController.getProductByIdHandler,
 );
@@ -138,7 +147,7 @@ router.put(
  * /api/v1/products/{id}:
  *   delete:
  *     summary: Delete a product
- *     description: Deletes a product by ID. Admin and staff are allowed.
+ *     description: Deletes a product by ID. Admin, staff, and customers are allowed.
  *     tags:
  *       - Products
  *     security:
@@ -164,7 +173,7 @@ router.put(
 router.delete(
     "/:id",
     authenticate,
-    isAuthorized({ hasRole: ["admin", "staff"] }),
+    isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
     validateRequest(productSchemas.delete),
     productController.deleteProductHandler,
 );

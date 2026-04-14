@@ -52,10 +52,19 @@ router.post(
  *     responses:
  *       '200':
  *         description: Categories retrieved successfully
+ *       '401':
+ *         description: Unauthorized
+ *       '403':
+ *         description: Forbidden
  *       '500':
  *         description: Server error
  */
-router.get("/", categoryController.getAllCategoriesHandler);
+router.get(
+    "/",
+    authenticate,
+    isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
+    categoryController.getAllCategoriesHandler,
+);
 /**
  * @openapi
  * /api/v1/categories/{id}:
@@ -87,7 +96,7 @@ router.get("/", categoryController.getAllCategoriesHandler);
 router.get(
     "/:id",
     authenticate,
-    isAuthorized({ hasRole: ["admin", "staff"] }),
+    isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
     validateRequest(categorySchemas.getById),
     categoryController.getCategoryByIdHandler,
 );
@@ -96,7 +105,7 @@ router.get(
  * /api/v1/categories/{id}:
  *   put:
  *     summary: Update a category
- *     description: Updates an existing category. Only admins are allowed.
+ *     description: Updates an existing category. Admin and staff are allowed.
  *     tags:
  *       - Categories
  *     security:
@@ -129,7 +138,7 @@ router.get(
 router.put(
     "/:id",
     authenticate,
-    isAuthorized({ hasRole: ["admin"] }),
+    isAuthorized({ hasRole: ["admin", "staff"] }),
     validateRequest(categorySchemas.update),
     categoryController.updateCategoryHandler,
 );
@@ -138,7 +147,7 @@ router.put(
  * /api/v1/categories/{id}:
  *   delete:
  *     summary: Delete a category
- *     description: Deletes a category by ID. Only admins are allowed.
+ *     description: Deletes a category by ID. Admin, staff, and customers are allowed.
  *     tags:
  *       - Categories
  *     security:
@@ -164,7 +173,7 @@ router.put(
 router.delete(
     "/:id",
     authenticate,
-    isAuthorized({ hasRole: ["admin"] }),
+    isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
     validateRequest(categorySchemas.delete),
     categoryController.deleteCategoryHandler,
 );
