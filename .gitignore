@@ -5,3 +5,4 @@ dist/
 # Firebase service account keys (never commit)
 *firebase-adminsdk*.json
 *-firebase-adminsdk-*.json
+back-end-assignments-2690b-firebase-adminsdk-fbsvc-97ca3ee0c5.json
