@@ -6,6 +6,7 @@ import adminRoutes from "./adminRoutes";
 
 const v1Router = Router();
 
+// Define the routes for the v1 API
 v1Router.use("/categories", categoryRoutes);
 v1Router.use("/products", productRoutes);
 v1Router.use("/orders", orderRoutes);

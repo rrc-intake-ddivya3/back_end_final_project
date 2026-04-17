@@ -2,7 +2,7 @@ import "dotenv/config";
 import app from "./app";
 import { Server } from "http";
 
-// 4000 avoids common conflicts on 3000–3001 (React, other dev servers, stale Node).
+// 4000 avoids common conflicts on 3000-3001
 const PORT: number = Number(process.env.PORT) || 4000;
 
 const server: Server = app.listen(PORT, () => {
