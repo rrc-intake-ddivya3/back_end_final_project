@@ -5,6 +5,8 @@ import * as firestoreRepository from "../repositories/firestoreRepository";
 const COLLECTION = "orders";
 const PRODUCTS = "products";
 
+// update create order servive function before creating order, check if product exists and quantity is valid
+
 async function productExists(productId: string): Promise<boolean> {
     const product = await firestoreRepository.getDocById<Product>(
         PRODUCTS,

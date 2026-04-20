@@ -114,7 +114,7 @@ export const productSchemas = {
             stock: Joi.number().integer().optional(),
             categoryId: Joi.string().optional(),
         })
-            .or("name", "price", "quantity", "stock", "categoryId")
+            .or("name", "price", "quantity", "stock", "categoryId") // chnage the quantiny and stock 
             .messages({
                 "object.missing":
                     "At least one field is required: name, price, quantity, stock, or categoryId",

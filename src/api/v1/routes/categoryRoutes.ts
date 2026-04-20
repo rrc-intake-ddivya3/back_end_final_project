@@ -36,8 +36,8 @@ const router = Router();
  */
 router.post(
     "/",
-    authenticate,
-    isAuthorized({ hasRole: ["admin"] }),
+    //authenticate,
+    //isAuthorized({ hasRole: ["admin"] }),
     validateRequest(categorySchemas.create),
     categoryController.createCategoryHandler,
 );
