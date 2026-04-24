@@ -36,8 +36,8 @@ const router = Router();
  */
 router.post(
     "/",
-    //authenticate,
-    //isAuthorized({ hasRole: ["admin"] }),
+    authenticate,
+    isAuthorized({ hasRole: ["admin"] }),
     validateRequest(categorySchemas.create),
     categoryController.createCategoryHandler,
 );
@@ -61,9 +61,7 @@ router.post(
  */
 router.get(
     "/",
-    authenticate,
-    isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
-    categoryController.getAllCategoriesHandler,
+    categoryController.getAllCategoriesHandler
 );
 /**
  * @openapi
@@ -95,10 +93,8 @@ router.get(
  */
 router.get(
     "/:id",
-    authenticate,
-    isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
     validateRequest(categorySchemas.getById),
-    categoryController.getCategoryByIdHandler,
+    categoryController.getCategoryByIdHandler
 );
 /**
  * @openapi
@@ -140,7 +136,7 @@ router.put(
     authenticate,
     isAuthorized({ hasRole: ["admin", "staff"] }),
     validateRequest(categorySchemas.update),
-    categoryController.updateCategoryHandler,
+    categoryController.updateCategoryHandler
 );
 /**
  * @openapi
@@ -175,7 +171,7 @@ router.delete(
     authenticate,
     isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
     validateRequest(categorySchemas.delete),
-    categoryController.deleteCategoryHandler,
+    categoryController.deleteCategoryHandler
 );
 
 export default router;

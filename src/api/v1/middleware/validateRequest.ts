@@ -82,7 +82,7 @@ export const validateRequest = (
                     defaultOptions.stripBody,
                 );
 
-                Object.assign(req.body, value);
+                req.body = value as Request["body"];
             }
 
             if (schemas.params) {
@@ -93,7 +93,7 @@ export const validateRequest = (
                     defaultOptions.stripParams,
                 );
 
-                Object.assign(req.params, value);
+                req.params = value as Request["params"];
             }
 
             if (schemas.query) {
@@ -104,7 +104,7 @@ export const validateRequest = (
                     defaultOptions.stripQuery,
                 );
 
-                Object.assign(req.query, value);
+                req.query = value as Request["query"];
             }
 
             // If there are any validation errors, return them

@@ -5,7 +5,7 @@ import { validateRequest } from "../middleware/validateRequest";
 import { adminSchemas } from "../Validations/adminSchemas";
 import * as adminController from "../controllers/adminController";
 
-const router = Router();
+const adminRouter = Router();
 
 /**
  * @openapi
@@ -48,7 +48,7 @@ const router = Router();
  *       '500':
  *         description: Server error
  */
-router.post(
+adminRouter.post(
     "/users/:uid/role",
     authenticate,
     //isAuthorized({ hasRole: ["admin"] }),
@@ -56,4 +56,4 @@ router.post(
     adminController.setUserRoleHandler,
 );
 
-export default router;
+export default adminRouter;

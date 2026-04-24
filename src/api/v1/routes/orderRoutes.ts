@@ -5,7 +5,7 @@ import { orderSchemas } from "../Validations/orderSchemas";
 import authenticate from "../middleware/authenticate";
 import isAuthorized from "../middleware/authorize";
 
-const router = Router();
+const orderRouter = Router();
 
 /**
  * @openapi
@@ -34,7 +34,7 @@ const router = Router();
  *       '403':
  *         description: Forbidden
  */
-router.post(
+orderRouter.post(
     "/",
     authenticate,
     isAuthorized({ hasRole: ["admin"] }),
@@ -59,7 +59,7 @@ router.post(
  *       '500':
  *         description: Server error
  */
-router.get(
+orderRouter.get(
     "/",
     authenticate,
     isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
@@ -93,7 +93,7 @@ router.get(
  *       '500':
  *         description: Server error
  */
-router.get(
+orderRouter.get(
     "/:id",
     authenticate,
     isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
@@ -135,7 +135,7 @@ router.get(
  *       '500':
  *         description: Server error
  */
-router.put(
+orderRouter.put(
     "/:id",
     authenticate,
     isAuthorized({ hasRole: ["admin", "staff"] }),
@@ -170,7 +170,7 @@ router.put(
  *       '500':
  *         description: Server error
  */
-router.delete(
+orderRouter.delete(
     "/:id",
     authenticate,
     isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
@@ -178,4 +178,4 @@ router.delete(
     orderController.deleteOrderHandler,
 );
 
-export default router;
+export default orderRouter;

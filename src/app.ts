@@ -1,10 +1,16 @@
 import express, { Express } from "express";
+import dotenv from "dotenv";
 import v1Routes from "./api/v1/routes/index";
 import { corsMiddleware } from "./config/corsConfig";
 import errorHandler from "./api/v1/middleware/errorHandler";
 import { helmetMiddleware } from "./config/helmetConfig";
 import apiRateLimiter from "./api/v1/middleware/rateLimiter";
 import setupSwagger from "./config/swagger";
+import router from "./api/v1/routes/categoryRoutes";
+import productRouter from "./api/v1/routes/productRoutes";
+//import userRouter from "./api/v1/routes/userRoutes";
+
+dotenv.config();
 
 // Initialize Express application
 const app: Express = express();
@@ -23,6 +29,9 @@ app.get("/api/v1/health", (req, res) => {
     });
 });
 
+app.use("/api/v1/categories", router);
+app.use("/api/v1/products", productRouter);
+//app.use("/api/v1/users", userRouter);
 app.use("/api/v1", v1Routes);
 
 app.use(errorHandler);

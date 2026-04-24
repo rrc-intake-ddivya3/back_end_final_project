@@ -72,7 +72,7 @@ export const updateProductHandler = async (
 ): Promise<void> => {
     try {
         const { id } = req.params;
-        const { name, price, quantity, stock, categoryId } = req.body;
+        const { name, price, quantity, stock, categoryId } = req.body ?? {};
         const updateData = {
             name,
             price,

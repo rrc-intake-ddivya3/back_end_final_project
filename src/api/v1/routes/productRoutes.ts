@@ -5,7 +5,7 @@ import { productSchemas } from "../Validations/productSchemas";
 import authenticate from "../middleware/authenticate";
 import isAuthorized from "../middleware/authorize";
 
-const router = Router();
+const productRouter = Router();
 
 /**
  * @openapi
@@ -34,7 +34,7 @@ const router = Router();
  *       '403':
  *         description: Forbidden
  */
-router.post(
+productRouter.post(
     "/",
     authenticate,
     isAuthorized({ hasRole: ["admin"] }),
@@ -59,10 +59,8 @@ router.post(
  *       '500':
  *         description: Server error
  */
-router.get(
+productRouter.get(
     "/",
-    authenticate,
-    isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
     productController.getAllProductsHandler,
 );
 /**
@@ -93,10 +91,8 @@ router.get(
  *       '500':
  *         description: Server error
  */
-router.get(
+productRouter.get(
     "/:id",
-    authenticate,
-    isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
     validateRequest(productSchemas.getById),
     productController.getProductByIdHandler,
 );
@@ -135,7 +131,7 @@ router.get(
  *       '500':
  *         description: Server error
  */
-router.put(
+productRouter.put(
     "/:id",
     authenticate,
     isAuthorized({ hasRole: ["admin", "staff"] }),
@@ -170,7 +166,7 @@ router.put(
  *       '500':
  *         description: Server error
  */
-router.delete(
+productRouter.delete(
     "/:id",
     authenticate,
     isAuthorized({ hasRole: ["admin", "staff", "customer"] }),
@@ -178,4 +174,4 @@ router.delete(
     productController.deleteProductHandler,
 );
 
-export default router;
+export default productRouter;

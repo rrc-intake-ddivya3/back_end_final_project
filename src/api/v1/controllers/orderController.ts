@@ -61,7 +61,7 @@ export const updateOrderHandler = async (
 ): Promise<void> => {
     try {
         const { id } = req.params;
-        const { productId, quantity } = req.body;
+        const { productId, quantity } = req.body ?? {};
 
         const updatedOrder = await orderService.updateOrder(id as string, {
             productId,
