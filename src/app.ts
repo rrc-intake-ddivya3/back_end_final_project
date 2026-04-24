@@ -5,7 +5,7 @@ import { corsMiddleware } from "./config/corsConfig";
 import errorHandler from "./api/v1/middleware/errorHandler";
 import { helmetMiddleware } from "./config/helmetConfig";
 import apiRateLimiter from "./api/v1/middleware/rateLimiter";
-import setupSwagger from "./config/swagger";
+import setupSwagger from "./docs/swagger";
 import router from "./api/v1/routes/categoryRoutes";
 import productRouter from "./api/v1/routes/productRoutes";
 //import userRouter from "./api/v1/routes/userRoutes";
